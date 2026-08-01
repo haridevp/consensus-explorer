@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
 
         <a
-          href="https://github.com"
+          href="https://github.com/haridevp/consensus-explorer"
           target="_blank"
           rel="noreferrer"
           className="flex items-center gap-2 rounded-full border border-white/[0.08] px-4 py-2 text-xs text-mist-300 transition hover:border-signal-cyan/40 hover:text-signal-cyan"
