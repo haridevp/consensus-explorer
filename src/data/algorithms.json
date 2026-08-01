@@ -57,8 +57,8 @@
       "Rewards distributed; malicious behavior is slashed"
     ],
     "trilemma": { "security": 8, "scalability": 7, "decentralization": 6 },
-    "metrics": { "tps": 100, "blockTimeSec": 12, "finalitySec": 780, "energy": "Very Low", "validatorCount": "~1,000,000 validators" },
-    "security": { "attack51": "Requires 51% of staked value", "sybilResistance": "High (capital cost)", "faultTolerance": "33-50% (stake)", "finalityType": "Probabilistic + checkpoints" },
+    "metrics": { "tps": 100, "blockTimeSec": 12, "finalitySec": 768, "energy": "Very Low", "validatorCount": "~1,000,000 validators" },
+    "security": { "attack51": "Requires 51% of staked value", "sybilResistance": "High (capital cost)", "faultTolerance": "33% Byzantine / 50% economic", "finalityType": "Deterministic (Casper FFG checkpoint)" },
     "layer": "Layer 1"
   },
   {
@@ -212,7 +212,7 @@
       "Transaction is accepted as final across the network"
     ],
     "trilemma": { "security": 7, "scalability": 9, "decentralization": 7 },
-    "metrics": { "tps": 4500, "blockTimeSec": 2, "finalitySec": 1, "energy": "Very Low", "validatorCount": "~1,500 validators" },
+    "metrics": { "tps": 4500, "blockTimeSec": 2, "finalitySec": 1, "energy": "Very Low", "validatorCount": "~600 validators" },
     "security": { "attack51": "Requires majority across random samples", "sybilResistance": "High (stake-weighted)", "faultTolerance": "20% (Byzantine, probabilistic)", "finalityType": "Probabilistic, sub-second" },
     "layer": "Layer 1"
   },
@@ -243,7 +243,7 @@
       "Leadership rotates on a fixed schedule"
     ],
     "trilemma": { "security": 6, "scalability": 10, "decentralization": 4 },
-    "metrics": { "tps": 65000, "blockTimeSec": 0.4, "finalitySec": 13, "energy": "Low", "validatorCount": "~1,900 validators" },
+    "metrics": { "tps": 65000, "blockTimeSec": 0.4, "finalitySec": 13, "energy": "Low", "validatorCount": "~1,400 validators" },
     "security": { "attack51": "Requires majority of staked value", "sybilResistance": "High (stake-weighted)", "faultTolerance": "33% (stake)", "finalityType": "Optimistic + stake voting" },
     "layer": "Layer 1"
   },
@@ -274,7 +274,7 @@
       "Block is broadcast and verified by peers"
     ],
     "trilemma": { "security": 6, "scalability": 5, "decentralization": 7 },
-    "metrics": { "tps": 30, "blockTimeSec": 300, "finalitySec": 1800, "energy": "Low", "validatorCount": "~10,000 farmers" },
+    "metrics": { "tps": 30, "blockTimeSec": 52, "finalitySec": 600, "energy": "Low", "validatorCount": "~10,000 farmers" },
     "security": { "attack51": "Requires majority of network storage", "sybilResistance": "Medium (storage cost)", "faultTolerance": "50% (storage share)", "finalityType": "Probabilistic" },
     "layer": "Layer 1"
   },
@@ -367,7 +367,7 @@
       "The cycle repeats at the next checkpoint interval"
     ],
     "trilemma": { "security": 8, "scalability": 5, "decentralization": 6 },
-    "metrics": { "tps": 60, "blockTimeSec": 15, "finalitySec": 300, "energy": "High", "validatorCount": "Miners + ~200,000 stakers" },
+    "metrics": { "tps": 60, "blockTimeSec": 300, "finalitySec": 1800, "energy": "High", "validatorCount": "Miners + ~10,000 ticket holders" },
     "security": { "attack51": "Requires majority hash power AND stake", "sybilResistance": "High (dual cost)", "faultTolerance": "50% hash power / 33% stake", "finalityType": "Hybrid probabilistic + checkpoint" },
     "layer": "Layer 1"
   }
