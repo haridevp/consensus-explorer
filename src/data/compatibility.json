@@ -1,0 +1,5 @@
+{
+  "sameConsensusNote": "{a} and {b} both finalize blocks using {consensus}, so they share validator incentives, attack-cost assumptions, and finality behavior.",
+  "differentConsensusNote": "{a} runs {consensusA} while {b} runs {consensusB} — their security assumptions, validator economics, and finality guarantees are not directly comparable.",
+  "selfNote": "{a} compared with itself — always a perfect consensus match."
+}
