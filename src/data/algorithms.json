@@ -4,13 +4,13 @@
     "name": "Proof of Work",
     "shortName": "PoW",
     "icon": "pickaxe",
-    "tagline": "Security purchased with electricity and time.",
-    "overview": "Validators (miners) compete to solve a computationally expensive puzzle. The first to solve it proposes the next block and earns the reward.",
+    "tagline": "Security purchased with electricity and computational effort.",
+    "overview": "Validators (miners) compete to solve a computationally expensive cryptographic puzzle. The first to solve it proposes the next block and earns the block reward.",
     "mechanism": "Miners repeatedly hash block data with a changing nonce until the output falls below a target difficulty. Solving the puzzle is hard; verifying the solution is trivial for every other node.",
     "advantages": [
       "Battle-tested security over 15+ years",
-      "No stake concentration required to participate",
-      "Highly resistant to Sybil attacks via real-world cost"
+      "No prior token stake required to participate",
+      "Highly resistant to Sybil attacks via real-world hardware cost"
     ],
     "disadvantages": [
       "Very high energy consumption",
@@ -35,11 +35,11 @@
     "name": "Proof of Stake",
     "shortName": "PoS",
     "icon": "coins",
-    "tagline": "Security backed by capital at risk, not hardware.",
+    "tagline": "Security backed by locked capital, replacing energy with collateral.",
     "overview": "Validators lock up (stake) native tokens as collateral. The protocol selects a validator to propose each block, weighted by stake size.",
     "mechanism": "A pseudo-random algorithm selects a validator proportional to their stake. Validators who act maliciously have a portion of their stake destroyed (slashed).",
     "advantages": [
-      "Dramatically lower energy consumption than PoW",
+      "Dramatically lower energy consumption than PoW (~99.9% reduction)",
       "Faster block times and higher throughput",
       "Economic penalties (slashing) discourage misbehavior"
     ],
@@ -62,53 +62,22 @@
     "layer": "Layer 1"
   },
   {
-    "id": "dpos",
-    "name": "Delegated Proof of Stake",
-    "shortName": "DPoS",
-    "icon": "users",
-    "tagline": "Token holders elect a small council of block producers.",
-    "overview": "Token holders vote for a limited set of delegates who take turns producing blocks, trading some decentralization for speed.",
-    "mechanism": "Stakeholders cast votes weighted by holdings to elect a fixed number of delegates. Elected delegates round-robin block production and can be voted out.",
-    "advantages": [
-      "Very high throughput and fast confirmation",
-      "Democratic accountability via continuous voting",
-      "Low hardware requirements for participants"
-    ],
-    "disadvantages": [
-      "Small validator set risks centralization",
-      "Voter apathy can entrench incumbents",
-      "Vote-buying and cartel formation risk"
-    ],
-    "workflow": [
-      "Token holders vote to elect a fixed set of delegates",
-      "Elected delegates are scheduled in a round-robin production order",
-      "Each delegate produces a block during its assigned slot",
-      "Peers validate and append the block to the chain",
-      "Underperforming delegates can be voted out at any time",
-      "Rewards are distributed to delegates and often shared with voters"
-    ],
-    "trilemma": { "security": 6, "scalability": 9, "decentralization": 4 },
-    "metrics": { "tps": 3000, "blockTimeSec": 1, "finalitySec": 3, "energy": "Low", "validatorCount": "21-101 delegates" },
-    "security": { "attack51": "Requires collusion among elected delegates", "sybilResistance": "Medium (vote-weighted)", "faultTolerance": "1/3 of delegates", "finalityType": "Fast deterministic" },
-    "layer": "Layer 1"
-  },
-  {
     "id": "poa",
     "name": "Proof of Authority",
     "shortName": "PoA",
     "icon": "shield",
-    "tagline": "Reputation-vetted validators, tuned for private networks.",
-    "overview": "A small set of pre-approved, identity-verified validators take turns producing blocks, prioritizing speed and predictability over decentralization.",
-    "mechanism": "Validators are whitelisted based on verified identity and reputation. They sign blocks in a known rotation; misbehavior damages their public reputation.",
+    "tagline": "Identity-vetted validators, tuned for enterprise and private chains.",
+    "overview": "A small set of pre-approved, identity-verified validators take turns producing blocks, prioritizing speed and predictability over full decentralization.",
+    "mechanism": "Validators are whitelisted based on verified identity and real-world reputation. They sign blocks in a known rotation; misbehavior damages their public identity.",
     "advantages": [
       "Extremely fast and predictable block times",
-      "Low computational overhead",
-      "Well suited for consortium and enterprise chains"
+      "Minimal computational and energy overhead",
+      "Ideal for consortium and private enterprise networks"
     ],
     "disadvantages": [
       "Highly centralized validator set",
-      "Requires trust in validator identities",
-      "Not censorship resistant"
+      "Requires trust in real-world validator identities",
+      "Not fully censorship resistant"
     ],
     "workflow": [
       "A governing body approves and whitelists validator identities",
@@ -128,18 +97,18 @@
     "name": "Practical Byzantine Fault Tolerance",
     "shortName": "PBFT",
     "icon": "network",
-    "tagline": "Vote your way to agreement, even with liars in the room.",
+    "tagline": "State machine replication with multi-round voting guarantees.",
     "overview": "A known set of nodes exchange multiple rounds of signed messages to reach agreement, tolerating up to one-third faulty or malicious nodes.",
     "mechanism": "A leader proposes a value; nodes broadcast pre-prepare, prepare, and commit messages until two-thirds agree, achieving immediate finality.",
     "advantages": [
-      "Instant, deterministic finality",
-      "No forking - one canonical history",
-      "Well understood formal guarantees"
+      "Instant, deterministic finality with zero chain forks",
+      "No block rollback possibility once committed",
+      "Well-understood formal mathematical guarantees"
     ],
     "disadvantages": [
-      "Communication overhead scales quadratically with nodes",
-      "Impractical for very large validator sets",
-      "Requires known, permissioned participants"
+      "Communication overhead scales quadratically with node count O(n²)",
+      "Impractical for massive open validator sets",
+      "Requires permissioned/known participant pool"
     ],
     "workflow": [
       "A leader node proposes a candidate block (pre-prepare)",
@@ -147,7 +116,7 @@
       "Nodes wait for 2f+1 matching prepare messages",
       "Nodes broadcast 'commit' messages once prepared",
       "Block commits once 2f+1 commit messages are collected",
-      "Result is final immediately, with no possibility of rollback"
+      "Result is final immediately with no possibility of reorg"
     ],
     "trilemma": { "security": 8, "scalability": 4, "decentralization": 3 },
     "metrics": { "tps": 2000, "blockTimeSec": 2, "finalitySec": 2, "energy": "Very Low", "validatorCount": "4-100 nodes" },
@@ -155,53 +124,22 @@
     "layer": "Layer 1"
   },
   {
-    "id": "tendermint",
-    "name": "Tendermint BFT",
-    "shortName": "Tendermint",
-    "icon": "hexagon",
-    "tagline": "PBFT reborn for public, stake-weighted networks.",
-    "overview": "A round-based BFT protocol combining PoS validator sets with PBFT-style voting rounds, giving public chains instant finality.",
-    "mechanism": "A proposer is chosen each round by stake weight; validators vote in propose, pre-vote, and pre-commit phases until two-thirds agree.",
-    "advantages": [
-      "Instant finality with no forks",
-      "Combines open participation with fast consensus",
-      "Modular consensus engine (used across many chains)"
-    ],
-    "disadvantages": [
-      "Throughput bound by validator count and network latency",
-      "Validator set typically capped for performance",
-      "Liveness can stall if 1/3+ validators go offline"
-    ],
-    "workflow": [
-      "Round-robin proposer is selected by stake weight",
-      "Proposer broadcasts a candidate block",
-      "Validators pre-vote on the proposal",
-      "Validators pre-commit once 2/3 pre-votes are observed",
-      "Block commits once 2/3 pre-commits are collected",
-      "Chain advances to the next round with a new proposer"
-    ],
-    "trilemma": { "security": 8, "scalability": 6, "decentralization": 5 },
-    "metrics": { "tps": 4000, "blockTimeSec": 6, "finalitySec": 6, "energy": "Very Low", "validatorCount": "100-175 validators" },
-    "security": { "attack51": "Requires 1/3+ stake to halt, 2/3 to corrupt", "sybilResistance": "High (stake-weighted)", "faultTolerance": "33% (Byzantine)", "finalityType": "Immediate deterministic" },
-    "layer": "Layer 1"
-  },
-  {
     "id": "avalanche",
     "name": "Avalanche Consensus",
     "shortName": "Avalanche",
     "icon": "mountain",
-    "tagline": "Agreement by repeated random sampling, not global voting.",
-    "overview": "Nodes repeatedly sample small random subsets of peers and adopt the majority preference, converging on consensus probabilistically but rapidly.",
-    "mechanism": "Each node queries k random validators about a transaction; if a strong majority agrees, confidence increases. Repeated sub-sampling rounds converge to near-certain finality within seconds.",
+    "tagline": "Agreement by repeated sub-sampling, avoiding global broadcasts.",
+    "overview": "Nodes repeatedly query small random subsets of peers and adopt the majority preference, rapidly converging on consensus probabilistically.",
+    "mechanism": "Each node queries k random validators about a transaction; if a strong majority agrees, confidence increases. Repeated sub-sampling rounds converge to finality in sub-seconds.",
     "advantages": [
       "Sub-second finality at large validator scale",
-      "High throughput without heavy communication overhead",
-      "Thousands of validators can participate"
+      "High throughput without O(n²) communication complexity",
+      "Thousands of validators can participate without network slowdown"
     ],
     "disadvantages": [
-      "Newer design with a shorter security track record",
-      "Probabilistic safety rather than classical BFT proofs",
-      "Complex to reason about formally"
+      "Newer design with shorter historical security track record",
+      "Probabilistic safety model rather than traditional BFT lockouts",
+      "More complex to reason about mathematically"
     ],
     "workflow": [
       "A node receives a new transaction and forms an initial preference",
@@ -221,18 +159,18 @@
     "name": "Proof of History",
     "shortName": "PoH",
     "icon": "clock",
-    "tagline": "A cryptographic clock that timestamps itself.",
-    "overview": "A verifiable delay function generates a sequential hash chain that proves time has passed, letting validators order events before consensus even begins.",
-    "mechanism": "A leader continuously hashes its own output, creating a verifiable sequence of time. This timeline is combined with a PoS-style voting layer (e.g. Tower BFT) to finalize blocks.",
+    "tagline": "A cryptographic time-recorder that orders transactions before voting.",
+    "overview": "A verifiable delay function generates a sequential hash chain proving elapsed time, letting nodes agree on ordering before consensus runs.",
+    "mechanism": "A leader continuously hashes its output in a single thread. Incoming transactions are stamped into this hash sequence, providing indisputable cryptographic ordering.",
     "advantages": [
-      "Removes the need to negotiate transaction order via messaging",
-      "Enables extremely high theoretical throughput",
-      "Pairs well with stake-weighted voting for fast finality"
+      "Eliminates network overhead of negotiating transaction timestamps",
+      "Enables ultra-high real-world throughput and fast block times",
+      "Pairs seamlessly with stake-weighted voting layers"
     ],
     "disadvantages": [
-      "Requires powerful hardware to keep up with the hash chain",
-      "Historically prone to network instability under load",
-      "Relies on a small set of high-performance leaders"
+      "Requires high-end single-core CPU hardware to maintain hash chain",
+      "Prone to network congestion during spike loads",
+      "Relies on scheduled sequential leader rotation"
     ],
     "workflow": [
       "The current leader continuously hashes its own prior output",
@@ -252,26 +190,26 @@
     "name": "Proof of Capacity",
     "shortName": "PoC",
     "icon": "harddrive",
-    "tagline": "Disk space stands in for computational brute force.",
-    "overview": "Also known as Proof of Space, participants pre-compute and store large data plots on disk. Block rights go to whoever holds a matching plot closest to a target.",
-    "mechanism": "Miners 'plot' hard drives with precomputed hash solutions ahead of time. When a challenge is issued, miners scan their plots for the closest matching value.",
+    "tagline": "Trading hard drive storage space for computational energy.",
+    "overview": "Also known as Proof of Space, participants pre-compute and store data plots on disk. Block creation rights go to whoever holds a matching plot closest to a target challenge.",
+    "mechanism": "Miners 'plot' hard drives with precomputed cryptographic hashes once. When a challenge is issued, miners read local plots to find the closest solution.",
     "advantages": [
-      "Far lower energy use than hash-power mining",
-      "Repurposes idle storage hardware",
-      "Discourages ASIC-style centralization"
+      "Far lower energy use than ASIC computation (uses idle drive power)",
+      "Recycles standard consumer and enterprise storage hardware",
+      "ASIC-resistant distribution model"
     ],
     "disadvantages": [
-      "Plotting phase is disk-intensive and slow",
-      "Storage hardware wear and capacity arms races",
-      "Smaller ecosystem and tooling maturity"
+      "Initial plotting phase is slow and disk-wear intensive",
+      "Arm-race toward purchasing massive storage arrays",
+      "Smaller developer ecosystem compared to PoW/PoS"
     ],
     "workflow": [
       "Miners generate large plot files of precomputed hashes",
-      "Plots are stored on disk ahead of time",
-      "The network issues a random challenge",
-      "Miners scan their plots for the closest matching value",
+      "Plots are stored permanently on local hard disks",
+      "The network issues a random challenge every block",
+      "Miners scan their local plots for the closest matching value",
       "The closest match wins the right to produce the next block",
-      "Block is broadcast and verified by peers"
+      "Block is broadcast and verified by peer nodes"
     ],
     "trilemma": { "security": 6, "scalability": 5, "decentralization": 7 },
     "metrics": { "tps": 30, "blockTimeSec": 52, "finalitySec": 600, "energy": "Low", "validatorCount": "~10,000 farmers" },
@@ -283,92 +221,30 @@
     "name": "Proof of Burn",
     "shortName": "PoB",
     "icon": "flame",
-    "tagline": "Destroy coins today to earn mining rights tomorrow.",
-    "overview": "Participants send tokens to a verifiably unspendable address, 'burning' them. The burned amount grants virtual mining power proportional to the sacrifice.",
-    "mechanism": "Coins are sent to an eater address with no known private key. The protocol treats burned value as a proxy for long-term commitment, weighting block rights accordingly.",
+    "tagline": "Destroying real token value to earn permanent virtual mining power.",
+    "overview": "Participants send native tokens to a verifiably unspendable eater address, 'burning' them. The protocol grants virtual mining power proportional to the burned value.",
+    "mechanism": "Coins are sent to an unspendable burn address (no private key exists). The protocol treats destroyed coins as long-term financial commitment, granting block proposal rights.",
     "advantages": [
-      "No ongoing energy expenditure after the burn",
-      "Aligns incentives toward long-term network health",
-      "Can bootstrap a new chain using an existing asset"
+      "Zero ongoing hardware or electrical costs after burning",
+      "Deflationary tokenomics that benefit all token holders",
+      "Allows bootstrapping new chains using established assets (e.g. BTC)"
     ],
     "disadvantages": [
-      "Permanently destroys capital, which is economically wasteful",
-      "Favors wealthy early participants",
-      "Limited real-world adoption at scale"
+      "Permanently destroys capital (economically irreversible)",
+      "Favors early wealthy participants with initial capital",
+      "Virtual mining power requires decay mechanisms to prevent monopoly"
     ],
     "workflow": [
-      "A participant sends tokens to a verifiably unspendable burn address",
+      "A participant sends tokens to an unspendable eater address",
       "The burn transaction is recorded permanently on-chain",
       "The protocol calculates virtual mining power from burned value",
-      "Burned power decays over time, requiring re-burning",
-      "Participants with the highest active burn win block rights",
-      "New blocks are broadcast and verified like any other chain"
+      "Burned power decays gradually over time, encouraging fresh burns",
+      "Participants with highest active virtual power win block rights",
+      "New blocks are broadcast and verified by network peers"
     ],
     "trilemma": { "security": 5, "scalability": 6, "decentralization": 5 },
     "metrics": { "tps": 15, "blockTimeSec": 150, "finalitySec": 900, "energy": "Very Low", "validatorCount": "Varies by burn activity" },
     "security": { "attack51": "Requires majority of burned value", "sybilResistance": "Medium (capital destruction)", "faultTolerance": "50% (burned share)", "finalityType": "Probabilistic" },
-    "layer": "Layer 1"
-  },
-  {
-    "id": "poet",
-    "name": "Proof of Elapsed Time",
-    "shortName": "PoET",
-    "icon": "hourglass",
-    "tagline": "A trusted lottery run inside secure hardware.",
-    "overview": "Each participant requests a randomized wait time from a trusted execution environment (TEE). Whoever's timer expires first wins the right to produce a block.",
-    "mechanism": "A TEE (e.g. Intel SGX) generates a fair, verifiable random wait for each node. Hardware attestation proves the wait wasn't manipulated, keeping the lottery fair without brute-force computation.",
-    "advantages": [
-      "Minimal energy consumption compared to PoW",
-      "Fair leader election without heavy computation",
-      "Well suited to permissioned enterprise consortia"
-    ],
-    "disadvantages": [
-      "Requires trusted hardware, reintroducing centralization",
-      "Vulnerable to hardware-level exploits",
-      "Limited applicability to fully public networks"
-    ],
-    "workflow": [
-      "Each participating node requests a random wait time from its TEE",
-      "The TEE issues a signed, attested wait duration",
-      "Nodes idle until their individual timer expires",
-      "The first node whose timer expires broadcasts a new block",
-      "Peers verify the hardware attestation and timer proof",
-      "The chain extends and the lottery resets for the next block"
-    ],
-    "trilemma": { "security": 5, "scalability": 7, "decentralization": 3 },
-    "metrics": { "tps": 800, "blockTimeSec": 10, "finalitySec": 10, "energy": "Very Low", "validatorCount": "10-1,000 nodes" },
-    "security": { "attack51": "Requires compromising TEE hardware", "sybilResistance": "Medium (hardware-gated)", "faultTolerance": "Depends on TEE trust model", "finalityType": "Fast deterministic" },
-    "layer": "Layer 1"
-  },
-  {
-    "id": "hybrid",
-    "name": "Hybrid PoW + PoS",
-    "shortName": "Hybrid",
-    "icon": "layers",
-    "tagline": "Mining proposes, staking disposes.",
-    "overview": "Combines PoW block production with a PoS-based checkpointing layer, using staked validators to periodically finalize and secure the mined chain.",
-    "mechanism": "Miners continue proposing blocks via PoW as usual, while a separate set of staked validators periodically vote to checkpoint the chain, making deep reorganizations economically irrational.",
-    "advantages": [
-      "Retains PoW's permissionless block production",
-      "Adds PoS-style finality to limit reorg depth",
-      "Smooths the transition path between consensus models"
-    ],
-    "disadvantages": [
-      "Increased protocol complexity across two systems",
-      "Still inherits PoW's energy footprint",
-      "Coordination overhead between miners and stakers"
-    ],
-    "workflow": [
-      "Miners compete via Proof of Work to produce new blocks",
-      "The mined chain grows as usual, block after block",
-      "Staked validators periodically convene to vote on a checkpoint",
-      "A checkpoint finalizes once a stake-weighted quorum agrees",
-      "Reorganizations beneath a finalized checkpoint are rejected",
-      "The cycle repeats at the next checkpoint interval"
-    ],
-    "trilemma": { "security": 8, "scalability": 5, "decentralization": 6 },
-    "metrics": { "tps": 60, "blockTimeSec": 300, "finalitySec": 1800, "energy": "High", "validatorCount": "Miners + ~10,000 ticket holders" },
-    "security": { "attack51": "Requires majority hash power AND stake", "sybilResistance": "High (dual cost)", "faultTolerance": "50% hash power / 33% stake", "finalityType": "Hybrid probabilistic + checkpoint" },
     "layer": "Layer 1"
   }
 ]
