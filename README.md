@@ -1,6 +1,6 @@
 # Consensus Algorithms in Blockchain — A Comparative Explorer
 
-An interactive dashboard for exploring and comparing 12 blockchain consensus algorithms:
+An interactive dashboard for exploring and comparing 8 blockchain consensus algorithms:
 trade-offs, performance, security, and the real chains that run on each one.
 
 ## Stack
